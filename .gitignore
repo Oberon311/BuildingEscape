@@ -4,4 +4,6 @@
 */Intermediate/
 */Saved/
 BuildingEscape/Content/StarterContent/
+
 *.VC.db
+*.suo
