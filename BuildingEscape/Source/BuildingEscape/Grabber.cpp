@@ -34,8 +34,31 @@ void UGrabber::BeginPlay()
 		UE_LOG(LogTemp, Error, TEXT("%s Missing Physics Handle Component"), *ObjName);
 	}
 	
+	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
+	if (InputComponent)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Found the input component"));
+		///Bind input axis
+		InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::Grab);
+		InputComponent->BindAction("Grab", IE_Released, this, &UGrabber::Release);
+	}
+	else
+	{
+		FString ObjName = GetOwner()->GetName();
+		UE_LOG(LogTemp, Error, TEXT("%s Missing Input Component"), *ObjName);
+	}
 }
 
+
+void UGrabber::Grab() 
+{
+	UE_LOG(LogTemp, Warning, TEXT("Grab Pressed"))
+}
+
+void UGrabber::Release()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Grab Released"))
+}
 
 // Called every frame
 void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction )
